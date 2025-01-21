@@ -229,7 +229,7 @@ async function pathFunc() {
 
 async function testFunc() {
   const TEST_TYPE = args[1];
-
+  console.log('TEST_TYPE', TEST_TYPE);
   if (!TEST_TYPE || TEST_TYPE === '' || TEST_TYPE === '--help') {
     greenLog(
       `
@@ -239,14 +239,15 @@ async function testFunc() {
   `,
       true
     );
-
-    if (TEST_TYPE === '--unit') {
-      await childRunCommand('yarn test:unit');
-      exit();
-    }
-    redLog(`Unrecognized test type: \${TEST_TYPE}\\`);
     exit();
   }
+  if (TEST_TYPE === '--unit') {
+    console.log('Running unit tests...');
+    await childRunCommand('yarn test:unit');
+    exit();
+  }
+  redLog(`Unrecognized test type: \${TEST_TYPE}\\`);
+  exit();
 }
 
 async function findFunc() {
