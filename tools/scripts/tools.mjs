@@ -239,6 +239,12 @@ async function testFunc() {
   `,
       true
     );
+
+    if (TEST_TYPE === '--unit') {
+      await childRunCommand('yarn test:unit');
+      exit();
+    }
+    redLog(`Unrecognized test type: \${TEST_TYPE}\\`);
     exit();
   }
 }
@@ -707,7 +713,7 @@ async function validateDependencyVersions() {
       `
     ❗️ Before publishing, make sure you have tested the build!
       - yarn test:unit     | run unit tests
-      - yarn test:local    | run e2e tests on nodejs 
+      - yarn test:local    | run e2e tests on nodejs
       `,
       true
     );
